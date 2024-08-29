@@ -12,7 +12,7 @@ const SearchFree = () =>{
 
   useEffect(()=>{
       fetchFromApi(`search?part=snippet&q=${searchTerm}`).then((data)=>{setVideos(data.items)})
-  },[])
+  },[searchTerm])
 
 
   return (
