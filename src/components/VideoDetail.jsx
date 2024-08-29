@@ -12,12 +12,14 @@ const VideoDetail = () => {
   const [videoDetail, setVideoDetail] = useState(null);
   const [videos, setVideos] = useState(null);
   useEffect(()=>{
-    fetchFromApi(`videos?part=snippet,statistics&Id=${id}&type=video`).then((data)=>setVideoDetail(data.items))
-
+    fetchFromApi(`videos?part=snippet,statistics&id=${id}`)
+    .then((data) => setVideoDetail(data.items[0]))
+    
     fetchFromApi(`search?part=snippet&relatedToVideoId=${id}&type=video`)
-      .then((data) => setVideos(data.items))
+    .then((data) => setVideos(data.items))
   },[id])
   // Suppose video is not loaded
+
   if(!videoDetail?.snippet) return <Loader />;
 
   const { snippet: { title, channelId, channelTitle }, statistics: { viewCount, likeCount } } = videoDetail;
@@ -50,9 +52,9 @@ const VideoDetail = () => {
             
             </Box>
         </Box>
-        <Box px={2} py={{ md: 1, xs: 5 }} justifyContent="center" alignItems="center" >
-          <Videos videos={videos} direction="column" />
-        </Box>
+       {/* <Box px={2} py={{ md: 1, xs: 5 }} justifyContent="center" alignItems="center">
+       <Videos videos={videos} direction="column" />
+       </Box> */}
       </Stack>
     </Box>
     
